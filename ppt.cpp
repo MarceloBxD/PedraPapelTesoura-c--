@@ -7,51 +7,40 @@
 #define MAX 3
 #define MAX_NOME 10
 
-char player(int);
+char usuario(int);
 int computador();
 
 using namespace std;
 
-int main()
+int usuario()
 {
     int num;
 
-    cout << "\n<----- Pedra Papel Tesoura (c++) ----->" << endl;
-
     do
     {
-        cout << "\nDigite o numero da sua jogada: (1) Pedra | (2) Papel | (3) Tesoura" << endl;
+        cout << "\nSua jogada: ";
         cin >> num;
 
         if (num < 1 || num > 3)
         {
-            cout << "Numero invalido!" << endl;
+            cout << "INVALIDO! DIGITE OUTRO" << endl;
         }
     } while (num < 1 || num > 3);
 
-    player(num);
-
-    // cout << "\nVoce jogou " << num << endl;
-
-    computador();
-
-    system("pause");
-    system("cls");
-
-    return 0;
+    return num;
 }
 
-char player(int jogada)
+char jogada(int j)
 {
-    if (jogada == 1)
+    if (j == 1)
     {
         cout << "\nVoce jogou pedra" << endl;
     }
-    else if (jogada == 2)
+    else if (j == 2)
     {
         cout << "\nVoce jogou papel" << endl;
     }
-    else if (jogada == 3)
+    else if (j == 3)
     {
         cout << "\nVoce jogou tesoura" << endl;
     }
@@ -79,4 +68,67 @@ int computador()
     }
 
     return numero;
+}
+
+char resultado(int a, int b)
+{
+
+    int empate = 0;
+
+    if (a == 1 && b == 2)
+    {
+        cout << "\nPapel cobre pedra" << endl;
+        cout << "\nComputador Wins!" << endl;
+    }
+    else if (a == 1 && b == 3)
+    {
+        cout << "\nPedra amassa tesoura" << endl;
+        cout << "\nVoce ganhou!" << endl;
+    }
+    else if (a == 2 && b == 1)
+    {
+        cout << "\nPapel cobre pedra!" << endl;
+        cout << "\nVoce ganhou!" << endl;
+    }
+    else if (a == 2 && b == 3)
+    {
+        cout << "\nTesoura corta papel" << endl;
+        cout << "\nComputador Wins!" << endl;
+    }
+    else if (a == 3 && b == 1)
+    {
+        cout << "\nPedra amassa tesoura" << endl;
+        cout << "\nComputador Wins!" << endl;
+    }
+    else if (a == 3 && b == 2)
+    {
+        cout << "\nTesoura corta papel!" << endl;
+        cout << "\nVoce ganhou!" << endl;
+    }
+    else
+    {
+        cout << "\nEMPATE! JOGUE NOVAMENTE!!!" << endl;
+        empate = 1;
+    }
+}
+
+int main()
+{
+    srand(time(NULL));
+    int jogada_usuario, jogada_computador, empate;
+
+    cout << "<---------- (1) Pedra | (2) Papel | (3) Tesoura ---------->" << endl;
+
+    do
+    {
+        jogada_usuario = usuario();
+        jogada(jogada_usuario);
+        jogada_computador = computador();
+        empate = resultado(jogada_usuario, jogada_computador);
+    } while(empate == 1);
+
+    system("pause");
+    system("cls");
+
+    return 0;
 }
